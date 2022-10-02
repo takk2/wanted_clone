@@ -1,0 +1,167 @@
+@charset "utf-8";
+@use "sass:math";
+
+@mixin css3-prefix($property, $value) {
+  -webkit-#{$property}: #{$value};
+  -khtml-#{$property}: #{$value};
+  -moz-#{$property}: #{$value};
+  -ms-#{$property}: #{$value};
+  -o-#{$property}: #{$value};
+  #{$property}: #{$value};
+}
+
+@mixin background-size($width: 100%, $height: $width) {
+  @if type-of($width) == "number" and $height !=null {
+    @include css3-prefix("background-size", $width $height);
+  } @else {
+    @include css3-prefix("background-size", $width);
+  }
+}
+
+@mixin background-opacity($color: #000, $opacity: 0.85) {
+  background: $color;
+  background: rgba($color, $opacity);
+}
+
+@mixin border-radius($radius: 5px) {
+  @include css3-prefix("border-radius", $radius);
+}
+
+@mixin box-sizing($type: border-box) {
+  @include css3-prefix("box-sizing", $type);
+}
+
+@mixin text-shadow($x: 2px, $y: 2px, $blur: 5px, $color: rgba(0, 0, 0, 0.4)) {
+  text-shadow: $x $y $blur $color;
+}
+
+@mixin transform($params) {
+  @include css3-prefix("transform", $params);
+}
+
+@mixin transform-origin($params) {
+  @include css3-prefix("transform-origin", $params);
+}
+
+@mixin transform-style($style: preserve-3d) {
+  @include css3-prefix("transform-style", $style);
+}
+
+@mixin transition($properties...) {
+  @if length($properties) >=1 {
+    @include css3-prefix("transition", $properties);
+  } @else {
+    @include css3-prefix("transition", "all 0.2s ease-in-out 0s");
+  }
+}
+
+@mixin keyframes($animation-name) {
+  @-webkit-keyframes #{$animation-name} {
+    @content;
+  }
+
+  @-moz-keyframes #{$animation-name} {
+    @content;
+  }
+
+  @-ms-keyframes #{$animation-name} {
+    @content;
+  }
+
+  @-o-keyframes #{$animation-name} {
+    @content;
+  }
+
+  @keyframes #{$animation-name} {
+    @content;
+  }
+}
+
+@mixin animation($str) {
+  @include css3-prefix("animation", $str);
+}
+
+@mixin absolute-full {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+@mixin clearfix {
+  &:before,
+  &:after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+}
+
+@mixin font-size($pixel) {
+  font-size: $pixel * 1px;
+}
+
+@mixin vw-font-size-pc($pc-pixel) {
+  font-size: $pc-pixel * 1px;
+  font-size: $pc-pixel * 100/1060 * 1vw;
+
+  @media (min-width: $screen-xlg) {
+    font-size: $pc-pixel * 1px;
+  }
+}
+
+@mixin vw-font-size-mo($mo-pixel) {
+  font-size: math.div($mo-pixel, 360 * 767 * 1px);
+  font-size: math.div($mo-pixel * 100, 360 * 1vw);
+
+  @media (max-width: 360px) {
+    font-size: $mo-pixel * 1px;
+    font-size: math.div($mo-pixel * 100, 360 * 1vw);
+  }
+}
+
+@mixin line-height-pc($num, $font-size: 0) {
+  line-height: $num;
+}
+
+@mixin line-height-mo($num, $font-size: 0) {
+  line-height: $num;
+}
+
+@mixin breakpoint($point) {
+  @if $point == desktop {
+    @media screen and (min-width: $screen-lg) {
+      @content;
+    }
+  } @else if $point == tablet {
+    @media screen and (max-width: ($screen-lg - 1px)) {
+      @content;
+    }
+  } @else if $point == mobile {
+    @media screen and (max-width: $screen-sm) {
+      @content;
+    }
+  }
+}
+
+@mixin multi-ellipsis($line) {
+  display: block;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: $line;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+}
+
+@mixin custom-scrollbar($w, $h, $bgColor, $thumbColor) {
+  &::-webkit-scrollbar {
+    width: $w * 1px;
+    height: $h * 1px;
+    background-color: $bgColor;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $thumbColor;
+  }
+}
