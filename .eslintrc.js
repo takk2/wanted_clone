@@ -1,13 +1,13 @@
 module.exports = {
   env: {
     browser: true,
-    es2021: true
+    es2021: true,
   },
   extends: ["plugin:react/recommended", "standard", "prettier"],
   overrides: [],
   parserOptions: {
     ecmaVersion: "latest",
-    sourceType: "module"
+    sourceType: "module",
   },
   plugins: ["react"],
   rules: {
@@ -15,7 +15,7 @@ module.exports = {
     "react/prop-types": "off",
     "react/display-name": "off",
     "no-useless-return": "off",
-    "no-unused-vars": "off",
-    "no-use-before-define": "off"
-  }
+    "no-unused-vars": 1,
+    "no-use-before-define": "off",
+  },
 };

@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 
+// 20줄 넘어가면 파일 따로 빼기 ExampleStyles.js
 const Wrapper = styled.div`
   width: 100%;
   span {
